@@ -14,7 +14,8 @@ class MessageSerializer(serializers.ModelSerializer):
 class MessageSerializerCustom(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ['email', 'text']
+        fields = '__all__'
+        write_only_fields = ('email', 'text',)
 
     def validate(self, data):
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
