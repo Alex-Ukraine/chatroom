@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-pg0n$5hyz)d__q2$n&)8%57bkaqmg467zrmnsl%e$1^)^osg&a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'public-chat-db2.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'qwerty.eba-z7iwvk7f.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 
@@ -73,6 +73,18 @@ WSGI_APPLICATION = 'chatroom.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'movie',
+        'USER': 'postgres',
+        'PASSWORD': 'qwerty',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}"""
+
 
 DATABASES = {
     'default': {
