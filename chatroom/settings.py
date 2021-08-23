@@ -19,12 +19,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pg0n$5hyz)d__q2$n&)8%57bkaqmg467zrmnsl%e$1^)^osg&a'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'public-chat-db2.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'public-chat-db2.herokuapp.com', 'qwerty.eba-z7iwvk7f.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 
@@ -74,16 +74,28 @@ WSGI_APPLICATION = 'chatroom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dcf44u511b2tf6',
-        'USER': 'kxzangtnvpmppb',
-        'PASSWORD': 'f0b79fdc91889d899db91ecfa0bab6e2548b3ceb6e64c821a297eefbd708db9b',
-        'HOST': 'ec2-34-251-245-108.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+if 'PG_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['PG_NAME'],
+            'USER': os.environ['PG_USER'],
+            'PASSWORD': os.environ['PG_PASSWORD'],
+            'HOST': os.environ['PG_HOST'],
+            'PORT': os.environ['PG_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'movie',
+            'USER': 'postgres',
+            'PASSWORD': 'qwerty',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

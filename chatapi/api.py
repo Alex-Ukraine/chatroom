@@ -1,5 +1,6 @@
 import datetime
 
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from .models import Message
@@ -36,7 +37,7 @@ class MessageViewSetSingle(mixins.RetrieveModelMixin,
         data = request.data
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data['create_date'] = datetime.datetime.utcnow()
+        serializer.validated_data['create_date'] = timezone.now()
         serializer.validated_data['update_date'] = serializer.validated_data['create_date']
         serializer.save()
         headers = self.get_success_headers(serializer.data)
@@ -49,7 +50,7 @@ class MessageViewSetSingle(mixins.RetrieveModelMixin,
 
         serializer = self.get_serializer(instance, data=data, partial=partial)
         serializer.is_valid(raise_exception=True)
-        serializer.validated_data['update_date'] = datetime.datetime.utcnow()
+        serializer.validated_data['update_date'] = timezone.now()
         self.perform_update(serializer)
 
         if getattr(instance, '_prefetched_objects_cache', None):
